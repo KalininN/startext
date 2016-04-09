@@ -6,7 +6,7 @@ class StarPlacer():
         self.width = int(args[0])
         self.height = int(args[1])
         self.stars = []
-        self.npics = 5
+        self.npics = 6
 
     def __out(self, s):
         for i in range(self.curtab):
@@ -38,7 +38,7 @@ class StarPlacer():
             self.__popgc()
             self.__pushgc()
             for star in self.stars:
-                self.__out("image src-over %d,%d 30,30 'stars/star%d.svg'" % (star[0], star[1], star[2]))
+                self.__out("image src-over %d,%d 50,50 'stars/star%d.png'" % (star[0] - 25, star[1] - 25, star[2]))
             self.__popgc()
             self.__popgc()
             self.__popgc()

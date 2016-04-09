@@ -15,7 +15,10 @@
    id="svg17675"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="star4.svg">
+   sodipodi:docname="star4.svg"
+   inkscape:export-filename="/home/nikolay/Documents/Programm/startext/stars/star4.png"
+   inkscape:export-xdpi="86.199997"
+   inkscape:export-ydpi="86.199997">
   <defs
      id="defs17677" />
   <sodipodi:namedview
@@ -26,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="-660.32607"
-     inkscape:cy="-48.182585"
+     inkscape:cx="-647.46893"
+     inkscape:cy="66.103129"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -48,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
