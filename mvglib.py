@@ -5,6 +5,7 @@ class StarPlacer():
     def __init__(self, *args):
         self.width = int(args[0])
         self.height = int(args[1])
+        self.starsize = 50
         self.stars = []
         self.npics = 6
 
@@ -21,7 +22,10 @@ class StarPlacer():
         self.curtab -= 1
         self.__out('pop graphic-context')
 
-    def placerandom(self, x, y):
+    def set_star_size(self, size):
+        self.starsize = size
+
+    def place_random(self, x, y):
         self.stars.append((x, y, randint(1, self.npics)))
     
     def generate_mvg(self, filename):
@@ -38,7 +42,8 @@ class StarPlacer():
             self.__popgc()
             self.__pushgc()
             for star in self.stars:
-                self.__out("image src-over %d,%d 50,50 'stars/star%d.png'" % (star[0] - 25, star[1] - 25, star[2]))
+                self.__out("image src-over %d,%d %d,%d 'stars/star%d.png'" %
+                           (star[0] - self.starsize / 2, star[1] - self.starsize / 2, self.starsize, self.starsize, star[2]))
             self.__popgc()
             self.__popgc()
             self.__popgc()
