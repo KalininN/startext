@@ -9,19 +9,6 @@ class StarPlacer():
         self.stars = []
         self.npics = 6
 
-    def __out(self, s):
-        for i in range(self.curtab):
-            print('  ', end='', file=self.file)
-        print(s, file=self.file)
-
-    def __pushgc(self):
-        self.__out('push graphic-context')
-        self.curtab += 1
-
-    def __popgc(self):
-        self.curtab -= 1
-        self.__out('pop graphic-context')
-
     def set_star_size(self, size):
         self.starsize = size
 
@@ -30,20 +17,8 @@ class StarPlacer():
     
     def generate_mvg(self, filename):
         with open(filename, "w") as self.file:
-            self.curtab = 0
-            self.__pushgc()
-            self.__out("viewbox 0 0 %d %d" % (self.width, self.height))
-            self.__pushgc()
-            self.__pushgc()
-            self.__out("fill 'darkslateblue'")
-            self.__out("stroke 'blue'")
-            self.__out("stroke-width 1")
-            self.__out("rectangle 0,0 %d,%d" % (self.width, self.height))
-            self.__popgc()
-            self.__pushgc()
+            print("convert -size %dx%d xc:darkslateblue \\" % (self.width, self.height), file=self.file)
             for star in self.stars:
-                self.__out("image src-over %d,%d %d,%d 'stars/star%d.png'" %
-                           (star[0] - self.starsize / 2, star[1] - self.starsize / 2, self.starsize, self.starsize, star[2]))
-            self.__popgc()
-            self.__popgc()
-            self.__popgc()
+                print("stars/star%d.png -geometry %dx%d+%d+%d -composite \\" %
+                      (star[2], self.starsize, self.starsize, star[0] - self.starsize / 2, star[1] - self.starsize / 2), file=self.file)
+            print("result.png", file=self.file)
