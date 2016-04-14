@@ -1,4 +1,5 @@
 from random import *
+from subprocess import call
 
 
 class StarPlacer():
@@ -7,18 +8,23 @@ class StarPlacer():
         self.height = int(args[1])
         self.starsize = 50
         self.stars = []
-        self.npics = 6
+        self.npics = 14
 
     def set_star_size(self, size):
         self.starsize = size
 
     def place_random(self, x, y):
-        self.stars.append((x, y, randint(1, self.npics)))
-    
+        self.stars.append((x, y, randint(1, self.npics), randint(round(self.starsize * 0.7), round(self.starsize * 1.3)), randint(0, 11) * 32))
+
     def generate_mvg(self, filename):
-        with open(filename, "w") as self.file:
-            print("convert -size %dx%d xc:darkslateblue \\" % (self.width, self.height), file=self.file)
+        with open("mvglib.tmp", "w") as self.file:
+            print("convert -size %dx%d xc:midnightblue \\" % (self.width, self.height), file=self.file)
             for star in self.stars:
-                print("stars/star%d.png -geometry %dx%d+%d+%d -composite \\" %
-                      (star[2], self.starsize, self.starsize, star[0] - self.starsize / 2, star[1] - self.starsize / 2), file=self.file)
-            print("result.png", file=self.file)
+                print("stars/star%d-rotated%d.png -geometry %dx%d+%d+%d -composite \\" %
+                      (star[2], star[4], star[3], star[3], star[0] - star[3] / 2, star[1] - star[3] / 2), file=self.file)
+            print(filename, file=self.file)
+
+    def generate(self, filename):
+        self.generate_mvg(filename)
+        print("Preprocessing done, generating image...")
+        call(["bash", "mvglib.tmp"])

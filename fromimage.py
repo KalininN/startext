@@ -1,20 +1,29 @@
 from random import *
+import argparse
 
 from PIL import Image
 
 from mvglib import StarPlacer
 
-im = Image.open("text.png")
+parser = argparse.ArgumentParser(description='Make picture with stars arranged to form the picture.')
+parser.add_argument('inputfile', metavar='input',
+                   help='an input picture')
+parser.add_argument('outputfile', metavar='output',
+                   help='an output picture')
+
+args = parser.parse_args()
+
+im = Image.open(args.inputfile)
 
 height = im.size[0]
 width = im.size[1]
 res = StarPlacer(height, width)
 
-starsize = 15
-res.set_star_size(15)
+starsize = round((width + height) * 0.008)
+res.set_star_size(starsize)
 
 def getprob(whiteness):
-    return (1 - whiteness) * 0.95 + 0.05
+    return (1 - whiteness) * 0.97 + 0.03
 
 points = []
 
@@ -34,4 +43,4 @@ for i in range(25000):
         points.append((x, y))
         res.place_random(x, y)
 
-res.generate_mvg('text.mvg')
+res.generate(args.outputfile)
